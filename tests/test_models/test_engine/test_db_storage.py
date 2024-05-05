@@ -24,7 +24,7 @@ class TestDBStorageDocs(unittest.TestCase):
         test_db_storage.py conform to PEP8
         """
         files_to_check = ['models/engine/db_storage.py',
-                            'tests/test_models/test_engine/test_db_storage.py']
+                          'tests/test_models/test_engine/test_db_storage.py']
         style_guide = pep8.StyleGuide()
         total_errors = 0
         error_messages = []
@@ -75,9 +75,9 @@ class TestDBStorage(unittest.TestCase):
     def test_all_returns_dict(self):
         """Test that all returns a dictionary"""
         new_instance = BaseModel()
-        models.storage_type.new(new_instance)
-        models.storage_type.save()
-        all_instances = models.storage_type.all()
+        models.storage.new(new_instance)
+        models.storage.save()
+        all_instances = models.storage.all()
         self.assertIsInstance(all_instances, dict)
         self.assertIn(new_instance, all_instances.values())
 
@@ -88,9 +88,9 @@ class TestDBStorage(unittest.TestCase):
         rows when no class is passed
         """
         new_instance = BaseModel()
-        models.storage_type.new(new_instance)
-        models.storage_type.save()
-        all_instances = models.storage_type.all()
+        models.storage.new(new_instance)
+        models.storage.save()
+        all_instances = models.storage.all()
         self.assertIn(new_instance, all_instances.values())
 
     @unittest.skipIf(models.storage_type != 'db',
@@ -100,9 +100,9 @@ class TestDBStorage(unittest.TestCase):
         an object to the database
         """
         new_instance = BaseModel()
-        models.storage_type.new(new_instance)
-        models.storage_type.save()
-        all_instances = models.storage_type.all()
+        models.storage.new(new_instance)
+        models.storage.save()
+        all_instances = models.storage.all()
         self.assertIn(new_instance, all_instances.values())
 
     @unittest.skipIf(models.storage_type != 'db',
@@ -110,9 +110,9 @@ class TestDBStorage(unittest.TestCase):
     def test_save(self):
         """Test that save properly saves objects to the db"""
         new_instance = BaseModel()
-        models.storage_type.new(new_instance)
-        models.storage_type.save()
-        file_path = models.storage_type._DBStorage__engine.file_path
+        models.storage.new(new_instance)
+        models.storage.save()
+        file_path = models.storage._DBStorage__engine.file_path
         with open(file_path, 'r') as file:
             data = file.read()
             self.assertIn(
@@ -125,9 +125,9 @@ class TestDBStorage(unittest.TestCase):
     def test_get(self):
         """Test that get retrieves an item in db properly"""
         new_instance = BaseModel()
-        models.storage_type.new(new_instance)
-        models.storage_type.save()
-        retrieved_instance = models.storage_type.get(BaseModel,
+        models.storage.new(new_instance)
+        models.storage.save()
+        retrieved_instance = models.storage.get(BaseModel,
                                                      new_instance.id)
         self.assertEqual(retrieved_instance, new_instance)
 
@@ -137,9 +137,9 @@ class TestDBStorage(unittest.TestCase):
         """Test that count returns the right
         number of elements in the db
         """
-        initial_count = len(models.storage_type.all())
+        initial_count = len(models.storage.all())
         new_instance = BaseModel()
-        models.storage_type.new(new_instance)
-        models.storage_type.save()
-        updated_count = len(models.storage_type.all())
+        models.storage.new(new_instance)
+        models.storage.save()
+        updated_count = len(models.storage.all())
         self.assertEqual(updated_count, initial_count + 1)
